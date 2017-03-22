@@ -51,16 +51,14 @@ namespace weddingPlanner.Controllers
                     return RedirectToAction ("Dashboard","Wedding");
                 }
                 else{
-                    ViewBag.errors = ModelState.Values;
                     ViewBag.RegEmailError = "Email already used";
-                    return View ("Register");
                 }
             }
             else{
-                ViewBag.errors = ModelState.Values;
                 ViewBag.RegEmailError = "";
-                return View("Register");
             }
+            ViewBag.errors = ModelState.Values;
+            return View("Register");
         }
         [HttpPost]
         [RouteAttribute("login")]
@@ -70,22 +68,12 @@ namespace weddingPlanner.Controllers
                 if(SignInUser != null && Password != null){
                     if(SignInUser.Password == Password){
                         HttpContext.Session.SetInt32("CurrentUser",(int)SignInUser.Id);
-                    return RedirectToAction("Dashboard","Wedding");
-                    }
-                    else{
-                        ViewBag.LogError = "Invalid Login";
-                        return View("Login");
+                        return RedirectToAction("Dashboard","Wedding");
                     }
                 }
-                else{
-                    ViewBag.LogError = "Invalid Login";
-                    return View("Login");
-                }
             }
-            else{
-                ViewBag.LogError = "Invalid Login";
-                return View("Login");
-            }
+            ViewBag.LogError = "Invalid Login";
+            return View("Login");
         }
         [HttpGet]
         [RouteAttribute("logout")]

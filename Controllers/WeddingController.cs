@@ -22,12 +22,12 @@ namespace weddingPlanner.Controllers{
                 return RedirectToAction("Login","User");
             }
             else{
-                var getUserId = HttpContext.Session.GetInt32("CurrentUser");
+                int? getUserId = HttpContext.Session.GetInt32("CurrentUser");
                 User SignedInUser = _context.Users.Where(User => User.Id == getUserId).SingleOrDefault();
                 List<Wedding> getAllWeddings = _context.Weddings
-                .Include( wedding => wedding.Attendings)
-                    .ThenInclude(r => r.User)
-                .ToList();
+                        .Include( wedding => wedding.Attendings)
+                            .ThenInclude(r => r.User)
+                        .ToList();
                 int count = getAllWeddings.Count();
                 ViewBag.CurrentUser = SignedInUser;
                 
@@ -75,9 +75,9 @@ namespace weddingPlanner.Controllers{
                 return RedirectToAction("Login","User");
             }
             Wedding ShowOneWedding = _context.Weddings.Where(Wedding => Wedding.Id == id)
-            .Include( wedding => wedding.Attendings)
-                    .ThenInclude(r => r.User)
-            .SingleOrDefault();
+                    .Include( wedding => wedding.Attendings)
+                            .ThenInclude(r => r.User)
+                    .SingleOrDefault();
             int count = ShowOneWedding.Attendings.Count();
             ViewBag.ShowOne = ShowOneWedding;
             ViewBag.Count = count;
