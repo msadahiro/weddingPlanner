@@ -1,0 +1,38 @@
+@{
+    ViewData["Title"] = "Create";
+}
+<div id="Create">
+    <div class="header">
+        <h1>Create an Event</h1>
+        <a href="/logout">Logout</a>
+    </div>
+    <div class="errors">
+    @{
+        foreach(var error in ViewBag.errors)
+        {
+            //If there are any errors for a field...
+            if(@error.Errors.Count > 0)
+            {
+                // We show the first error for that field
+                <p>@error.Errors[0].ErrorMessage</p>
+            }
+        }
+        <p>@ViewBag.RegEmailError</p>
+    }
+    </div>
+    <div class="mainContent">
+        <form action="createevent" method="post">
+        <label for="SpouseName1">Spouse Name:</label>
+        <input type="text" name="SpouseName1"><br>
+
+        <label for="SpouseName2">Spouse Name: </label>
+        <input type="text" name="SpouseName2"><br>
+
+        <label for="WeddingDate">Wedding Date: </label>
+        <input type="date" min="@ViewBag.Today" name="WeddingDate"><br>
+
+        <input type="submit" value="Make event!">
+        </form>
+        <a href="/back"><button>Back</button></a>
+    </div> 
+</div>

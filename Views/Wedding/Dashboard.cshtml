@@ -1,0 +1,34 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+<div id="dashboard">
+    <div class="header">
+        <h1>Welcome @ViewBag.CurrentUser.FirstName!</h1>
+        <a href="/logout">Logout</a>
+    </div>
+    <div class="mainContent">
+        <table>
+            <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Date</th>
+                    <th>Guests</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                        foreach(var info in ViewBag.Weddings){
+                            <tr>
+                                <td><a href="wedding/@info.Id">@info.SpouseName1 and @info.SpouseName2's Wedding</a></td>
+                                <td>@Convert.ToDateTime(info.WeddingDate).ToString("MMM dd, yyyy")</td>
+                                <td>@info.Attendings.Count</td>
+                                <td><a href="reserve/@info.Id"><button>RSVP</button></a></td>
+                            </tr>
+                        }
+                    }
+            </tbody>
+        </table>
+        <a href="makeWedding">Create Wedding Event</a>
+    </div>
+</div>

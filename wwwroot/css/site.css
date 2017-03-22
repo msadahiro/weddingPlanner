@@ -1,0 +1,17 @@
+/*Write all of your CSS here*/
+.errors{
+    text-align: center;
+    color:red;
+    font-size:16px;
+}
+#index .header h1 {
+    font-family: cursive;
+	font-size: 40px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
+	line-height: 16.5px;
+}
+#index .mainContent{
+    margin: 30px;
+}

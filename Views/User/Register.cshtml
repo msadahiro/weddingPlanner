@@ -1,0 +1,43 @@
+@{
+    ViewData["Title"] = "Register";
+}
+<div id="register">
+    <div class="header">
+        <h1>Register</h1>
+    </div>
+    <div class="errors">
+        @{
+            foreach(var error in ViewBag.errors)
+            {
+                //If there are any errors for a field...
+                if(@error.Errors.Count > 0)
+                {
+                    // We show the first error for that field
+                    <p>@error.Errors[0].ErrorMessage</p>
+                }
+            }
+            <p>@ViewBag.RegEmailError</p>
+        }
+    </div>
+    <div class="mainContent">
+        <form action="create" method="post">
+            <label for="FirstName">First Name: </label>
+            <input type="text" name="FirstName"><br>
+
+            <label for="LastName">Last Name: </label>
+            <input type="text" name="LastName"><br>
+
+            <label for="Email">Email: </label>
+            <input type="text" name="Email"><br>
+
+            <label for="Password">Password: </label>
+            <input type="text" name="Password"><br>
+
+            <label for="PasswordConfirmation">Password Confirmation: </label>
+            <input type="text" name="PasswordConfirmation"><br>
+
+            <input type="submit" value="Created Account">
+        </form>
+        <p>Already have an account? Go to <a href="login">Login</a></p>
+    </div>
+</div>

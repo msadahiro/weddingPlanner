@@ -1,0 +1,22 @@
+@{
+    ViewData["Title"] = "Event";
+}
+<div id="event">
+    <div class="header">
+        <a href="/back">Back</a>
+        <a href="/logout">Logout</a>
+        <h1>@ViewBag.ShowOne.SpouseName1 and @ViewBag.ShowOne.SpouseName2's Wedding!</h1>
+        <h3>@Convert.ToDateTime(ViewBag.ShowOne.WeddingDate).ToString("MMM dd, yyyy")</h3>
+    </div>
+    <div class="mainContent">
+        <h4>Guests that have RSPV'd: @ViewBag.Count</h4>
+        @{
+            foreach(var people in @ViewBag.ShowOne.Attendings){
+                <ul>
+                    <li>@people.User.FirstName</li>
+                </ul>
+            }
+        }
+    </div>
+</div>
+
