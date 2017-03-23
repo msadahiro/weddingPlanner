@@ -20,7 +20,7 @@
                             foreach(var wedding in @ViewBag.ShowPerson.Reserves){
                                 <tr>
                                     <td>@wedding.Wedding.SpouseName1 and @wedding.Wedding.SpouseName2's wedding</td>
-                                    <td><a href="">RSVP</a></td>
+                                    <td><a href="/wedding/@wedding.Wedding.Id"><button>Go To Wedding</button></a></td>
                                 </tr>
                             }
                         }                
