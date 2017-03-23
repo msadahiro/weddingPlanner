@@ -123,14 +123,34 @@ namespace weddingPlanner.Controllers{
             _context.SaveChanges();
             return RedirectToAction("Dashboard");
         }
-        //Get: button to edit 
+        //Get: button to edit page!
         [HttpGetAttribute]
         [RouteAttribute("edit/{id}")]
         public IActionResult Edit(int id){
             if(HttpContext.Session.GetInt32("CurrentUser")==null){
                 return RedirectToAction("Login","User");
             }
+            Wedding EditWedding = _context.Weddings.Where(Wedding => Wedding.Id == id).SingleOrDefault();
+            ViewBag.EditWedding = EditWedding;
+            ViewBag.EditErrors = new List<string>();
             return View();
+        }
+        //POST: edit existing information
+        [HttpPost]
+        [RouteAttribute("edit/{id}")]
+        public IActionResult Change(CreateViewModel model, int id){
+            int? getUserId = HttpContext.Session.GetInt32("CurrentUser");
+            if(ModelState.IsValid){
+                    Wedding updatedWedding = _context.Weddings.SingleOrDefault(wedding => wedding.Id == id);
+                    updatedWedding.SpouseName1 = model.SpouseName1;
+                    updatedWedding.SpouseName2 = model.SpouseName2;
+                    updatedWedding.WeddingDate = model.WeddingDate;                  
+                    _context.SaveChanges();
+                    return RedirectToAction("Dashboard");
+            }
+            ViewBag.EditWedding = _context.Weddings.Where(Wedding => Wedding.Id == id).SingleOrDefault();
+            ViewBag.EditErrors = ModelState.Values;
+            return View("Edit");
         }
     }
 }

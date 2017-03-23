@@ -5,4 +5,33 @@
     <div class="header">
         <h1>Edit Event</h1>
     </div>
+     <div class="errors">
+    @{
+        foreach(var error in ViewBag.EditErrors)
+        {
+            //If there are any errors for a field...
+            if(@error.Errors.Count > 0)
+            {
+                // We show the first error for that field
+                <p>@error.Errors[0].ErrorMessage</p>
+            }
+        }
+    }
+    </div>
+    <div class="mainContent">
+        <h1>@ViewBag.EditWedding.SpouseName1 and @ViewBag.EditWedding.SpouseName2's Wedding</h1>
+
+        <form action="/edit/@ViewBag.EditWedding.Id" method="post">
+            <label for="SpouseName1">Spouse Name:</label>
+            <input type="text" value="@ViewBag.EditWedding.SpouseName1" name="SpouseName1"><br>
+
+            <label for="SpouseName2">Spouse Name: </label>
+            <input type="text" value="@ViewBag.EditWedding.SpouseName2" name="SpouseName2"><br>
+
+            <label for="WeddingDate">Wedding Date: </label>
+            <input type="date" min="@ViewBag.Today" name="WeddingDate"><br>
+
+            <input type="submit" value="Update event!">
+        </form>
+    </div>
 </div>
