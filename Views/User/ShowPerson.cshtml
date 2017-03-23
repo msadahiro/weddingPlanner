@@ -15,17 +15,15 @@
                 <th>Action</th>
             </thead>
             <tr></tr>
-            <tbody>
-                <tr>
-                    
+            <tbody>  
                         @{
                             foreach(var wedding in @ViewBag.ShowPerson.Reserves){
-                                <td>@wedding.Wedding.SpouseName1 and @wedding.Wedding.SpouseName2's wedding</td>
+                                <tr>
+                                    <td>@wedding.Wedding.SpouseName1 and @wedding.Wedding.SpouseName2's wedding</td>
+                                    <td><a href="">RSVP</a></td>
+                                </tr>
                             }
-                        }
-                    
-                    <td><a href="">RSVP</a></td>
-                </tr>
+                        }                
             </tbody>
         </table>
     </div>
