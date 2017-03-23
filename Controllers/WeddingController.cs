@@ -25,13 +25,11 @@ namespace weddingPlanner.Controllers{
                 int? getUserId = HttpContext.Session.GetInt32("CurrentUser");
                 User SignedInUser = _context.Users.Where(User => User.Id == getUserId).SingleOrDefault();
                 List<Wedding> getAllWeddings = _context.Weddings
+                        .OrderByDescending(wedding => wedding.WeddingDate)
                         .Include( wedding => wedding.Attendings)
                             .ThenInclude(r => r.User)
                         .ToList();
-                int count = getAllWeddings.Count();
                 ViewBag.CurrentUser = SignedInUser;
-                
-                ViewBag.Count = count;
                 ViewBag.Weddings = getAllWeddings;
                 return View ();
             }
@@ -92,6 +90,15 @@ namespace weddingPlanner.Controllers{
                 WeddingId = id
             };
             _context.Add(newRsvp);
+            _context.SaveChanges();
+            return RedirectToAction("Dashboard");
+        }
+        [HttpGetAttribute]
+        [RouteAttribute("removeRSVP/{id}")]
+        public IActionResult removeRSVP (int id){
+            int? getUserId = HttpContext.Session.GetInt32("CurrentUser");
+            Reserve remove = _context.Reserves.SingleOrDefault(user => user.UserId == getUserId);
+            _context.Remove(remove);
             _context.SaveChanges();
             return RedirectToAction("Dashboard");
         }
