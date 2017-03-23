@@ -24,6 +24,7 @@ namespace weddingPlanner.Controllers
         {
             return View();
         }
+        // Get: /Register-page
         [HttpGet]
         [RouteAttribute("register")]
         public IActionResult Register(){
@@ -31,12 +32,14 @@ namespace weddingPlanner.Controllers
             ViewBag.RegEmailError = "";
             return View("Register");
         }
+        // Get: Login-page
         [HttpGet]
         [RouteAttribute("login")]
         public IActionResult Login(){
             ViewBag.LogError = "";
             return View("Login");
         }
+        // POST: create a user
         [HttpPostAttribute]
         [RouteAttribute("create")]
         public IActionResult Create(RegisterViewModel model, User newUser){
@@ -61,6 +64,7 @@ namespace weddingPlanner.Controllers
             ViewBag.errors = ModelState.Values;
             return View("Register");
         }
+        //POST: login the user
         [HttpPost]
         [RouteAttribute("login")]
         public IActionResult LoginUser(string Email, string Password, LoginViewModel model){
@@ -76,12 +80,14 @@ namespace weddingPlanner.Controllers
             ViewBag.LogError = "Invalid Login";
             return View("Login");
         }
+        // GET: log out the user
         [HttpGet]
         [RouteAttribute("logout")]
         public IActionResult Logout(){
             HttpContext.Session.Clear();
             return RedirectToAction ("Index");
         }
+        // GET: SHOW ONE User
         [HttpGet]
         [RouteAttribute("{FirstName}/{id}")]
         public IActionResult ShowPerson(int id){
