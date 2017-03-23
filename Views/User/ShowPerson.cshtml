@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "User";
+}
+<div id="ShowPerson">
+    <div class="header">
+        <h1>@ViewBag.ShowPerson.FirstName</h1>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logout">Logout</a>
+    </div>
+    <div class="mainContent">
+        <h3>Number of weddings RSVP'd to: @ViewBag.ShowPerson.Reserves.Count</h3>
+        <table>
+            <thead>
+                <th>Weddings to Attend</th>
+            </thead>
+            <tr></tr>
+            <tbody>
+                <tr>
+                    <td>
+                        @{
+                            foreach(var wedding in @ViewBag.ShowPerson.Reserves){
+                                <p>@wedding.Wedding.SpouseName1 and @wedding.Wedding.SpouseName2's wedding</p>  
+                            }
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

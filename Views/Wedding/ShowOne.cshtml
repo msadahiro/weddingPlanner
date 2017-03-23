@@ -13,7 +13,7 @@
         @{
             foreach(var people in @ViewBag.ShowOne.Attendings){
                 <ul>
-                    <li>@people.User.FirstName</li>
+                    <li><a href="/@people.User.FirstName/@people.User.Id">@people.User.FirstName</a></li>
                 </ul>
             }
         }

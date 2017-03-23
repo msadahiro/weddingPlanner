@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using weddingPlanner.Models;
 
 namespace weddingPlanner.Controllers
@@ -80,6 +81,19 @@ namespace weddingPlanner.Controllers
         public IActionResult Logout(){
             HttpContext.Session.Clear();
             return RedirectToAction ("Index");
+        }
+        [HttpGet]
+        [RouteAttribute("{FirstName}/{id}")]
+        public IActionResult ShowPerson(int id){
+            if(HttpContext.Session.GetInt32("CurrentUser")==null){
+                return RedirectToAction("Login","User");
+            }
+            User ShowOneUser = _context.Users.Where(User => User.Id == id)
+                    .Include( wedding => wedding.Reserves)
+                            .ThenInclude(w => w.Wedding)
+                    .SingleOrDefault();
+            ViewBag.ShowPerson = ShowOneUser;     
+            return View();
         }
     }
 }
