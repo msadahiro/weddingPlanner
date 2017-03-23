@@ -71,8 +71,7 @@ namespace weddingPlanner.Controllers{
                 return RedirectToAction("Login","User");
             }
             if(ModelState.IsValid){
-                newWedding.CreatedAt = DateTime.Now;
-                newWedding.UpdatedAt = DateTime.Now;
+                newWedding.CreatedByUserId = (int)HttpContext.Session.GetInt32("CurrentUser");
                 _context.Add(newWedding);
                 _context.SaveChanges();
                 return RedirectToAction("Dashboard");
@@ -123,6 +122,15 @@ namespace weddingPlanner.Controllers{
             _context.Remove(remove);
             _context.SaveChanges();
             return RedirectToAction("Dashboard");
+        }
+        //Get: button to edit 
+        [HttpGetAttribute]
+        [RouteAttribute("edit/{id}")]
+        public IActionResult Edit(int id){
+            if(HttpContext.Session.GetInt32("CurrentUser")==null){
+                return RedirectToAction("Login","User");
+            }
+            return View();
         }
     }
 }

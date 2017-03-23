@@ -26,18 +26,23 @@
                                 <td>@Convert.ToDateTime(info.WeddingDate).ToString("MMM dd, yyyy")</td>
                                 <td>@info.Attendings.Count</td>
                                 @{bool attending = false;}
+                                @{bool created = false;}
                                 @foreach(var a in info.Attendings){
                                     if(@a.UserId == @ViewBag.CurrentUser.Id){
                                         attending = true;
-                                        /*<td><a href="removeRSVP/@info.Id"><button>UnRSVP</button></a></td>*/
                                     }
-                                    /*<td><a href="reserve/@info.Id"><button>RSVP</button></a></td>*/
                                 }
-
                                 @if(@attending == true){
                                     <td><a href="removeRSVP/@info.Id"><button>UnRSVP</button></a></td>
-                                } else {
+                                }
+                                else {
                                     <td><a href="reserve/@info.Id"><button>RSVP</button></a></td>
+                                }
+                                @if(@info.CreatedByUserId == @ViewBag.CurrentUser.Id){
+                                    created = true;
+                                }
+                                @if(@created == true){
+                                    <td><a href="edit/@info.Id"><button>Edit</button></a></td>
                                 }
                             </tr>
                         }
