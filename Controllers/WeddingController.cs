@@ -97,7 +97,7 @@ namespace weddingPlanner.Controllers{
         [RouteAttribute("removeRSVP/{id}")]
         public IActionResult removeRSVP (int id){
             int? getUserId = HttpContext.Session.GetInt32("CurrentUser");
-            Reserve remove = _context.Reserves.SingleOrDefault(user => user.UserId == getUserId);
+            Reserve remove = _context.Reserves.Where(user => user.UserId == getUserId).Where(wedding => wedding.WeddingId == id).SingleOrDefault();
             _context.Remove(remove);
             _context.SaveChanges();
             return RedirectToAction("Dashboard");

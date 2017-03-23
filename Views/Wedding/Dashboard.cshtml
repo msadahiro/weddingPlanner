@@ -18,22 +18,21 @@
             </thead>
             <tbody>
                 @{
-                        foreach(var info in ViewBag.Weddings){
+                        foreach(var info in @ViewBag.Weddings){
                             <tr>
                                 <td><a href="wedding/@info.Id">@info.SpouseName1 and @info.SpouseName2's Wedding</a></td>
                                 <td>@Convert.ToDateTime(info.WeddingDate).ToString("MMM dd, yyyy")</td>
                                 <td>@info.Attendings.Count</td>
-                                foreach(var res in info.Attendings){
-                                    if(res.UserId == @ViewBag.CurrentUser.Id){
-                                        <td><a href="removeRSVP/@info.Id"><button>Un-RSVP</button></a></td>
+                                <td><a href="reserve/@info.Id"><button>RSVP</button></a></td>
+                                @foreach(var a in info.Attendings){
+                                    if(@a.UserId == @ViewBag.CurrentUser.Id){
+                                        <td><a href="removeRSVP/@info.Id"><button>UnRSVP</button></a></td>
                                     }
-                                    else{
-                                        <td><a href="reserve/@info.Id"><button>RSVP</button></a></td>
-                                    }
-                                }
-                            </tr>
-                        }
+                                <h1>@a.UserId</h1>
+                            }
+                        </tr>
                     }
+                }
             </tbody>
         </table>
         <a href="makeWedding">Create Wedding Event</a>
