@@ -12,17 +12,19 @@
         <table>
             <thead>
                 <th>Weddings to Attend</th>
+                <th>Action</th>
             </thead>
             <tr></tr>
             <tbody>
                 <tr>
-                    <td>
+                    
                         @{
                             foreach(var wedding in @ViewBag.ShowPerson.Reserves){
-                                <p>@wedding.Wedding.SpouseName1 and @wedding.Wedding.SpouseName2's wedding</p>  
+                                <td>@wedding.Wedding.SpouseName1 and @wedding.Wedding.SpouseName2's wedding</td>
                             }
                         }
-                    </td>
+                    
+                    <td><a href="">RSVP</a></td>
                 </tr>
             </tbody>
         </table>

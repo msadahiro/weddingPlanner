@@ -89,7 +89,7 @@ namespace weddingPlanner.Controllers
                 return RedirectToAction("Login","User");
             }
             User ShowOneUser = _context.Users.Where(User => User.Id == id)
-                    .Include( wedding => wedding.Reserves)
+                    .Include( reserve => reserve.Reserves)
                             .ThenInclude(w => w.Wedding)
                     .SingleOrDefault();
             ViewBag.ShowPerson = ShowOneUser;     

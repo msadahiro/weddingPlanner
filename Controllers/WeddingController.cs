@@ -29,8 +29,14 @@ namespace weddingPlanner.Controllers{
                         .Include( wedding => wedding.Attendings)
                             .ThenInclude(r => r.User)
                         .ToList();
+                List<User> getAllUsers = _context.Users
+                        .Include(reserve => reserve.Reserves)
+                            .ThenInclude(wedding => wedding.Wedding)
+                        .ToList();
+
                 ViewBag.CurrentUser = SignedInUser;
                 ViewBag.Weddings = getAllWeddings;
+                ViewBag.AllUsers = getAllUsers;
                 return View ();
             }
         }
